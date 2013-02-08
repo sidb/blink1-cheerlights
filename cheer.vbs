@@ -1,3 +1,12 @@
+sysTest = blink1("id")
+If sysTest = "" Then
+	echo "No webserver"
+	WScript.Quit
+ElseIf InStr(sysTest, "00000000") > 0 Then
+	echo "No blink(1)"
+	WScript.Quit
+End If
+
 Set colDict = CreateObject("Scripting.Dictionary")
 colDict.Add "Red", "FF0000"
 colDict.Add "Orange", "FF9C00"
@@ -26,13 +35,17 @@ Next
 Function blink1(strUrl)
 	strUrl = "http://localhost:8934/blink1" & "/" & strUrl
 	echo "GET:" & strUrl
+	On Error Resume Next
+	Err.Clear
 	Set http = CreateObject("Microsoft.XmlHttp")
-	http.Open "GET", strUrl, False
-	http.Send
-	If http.Status = 200 Then
+	If Err.Number = 0 Then http.Open "GET", strUrl, False
+	If Err.Number = 0 Then http.Send
+	If Err.Number = 0 And http.Status = 200 Then
 		blink1 = http.responseText
 	End If
 	Set http = Nothing
+	Err.Clear
+	On Error Goto 0
 End Function
 
 Function getCheerlights
