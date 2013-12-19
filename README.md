@@ -1,7 +1,7 @@
 blink1-cheerlights
 ==================
 
-A Windows Scripting Host (WSH) VBScript to set ThingM's blink(1) to the current CheerLights color.
+A Windows Scripting Host (WSH) VBScript to set ThingM's blink(1) to the current CheerLights color using Blink1Control.
 
 The blink(1) should be working with a running instance of Blink1Control. This script polls the CheerLights API and sets the blink(1) colour via the local Web API.
 
